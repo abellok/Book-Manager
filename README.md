@@ -1,10 +1,16 @@
-# My Personal Project
+# Book Collection Manager
+## Personal Project Proposal
 
-## A subtitle
+My proposed project is a **book collection manager** application which
+will be able to catalogue inputted books, in addition to their information
+(such as genre, author, page length, etc.)
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+Possible audiences who may use this application include:
+- Bookstores
+- Libraries
+- Individual book collectors
 
-An example of text with **bold** and *italic* fonts.  
+This project interests me, because I myself am a book collector. I believe that
+such an application will provide greater organization and convenience
+for individuals who may need to navigate a large collection
+of books, in both professional and personal settings.
