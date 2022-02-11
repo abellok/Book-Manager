@@ -9,7 +9,6 @@ public class Book {
     private static int rating;              // number of rating stars (out of 5)
 
 
-
     // REQUIRES: bookTitle has a length >0
     //           authorName has a length >0
     //           bookLength has a size >0
@@ -27,38 +26,37 @@ public class Book {
         }
     }
 
+    // EFFECTS: returns the title of a book
     public String getTitle() {
         return title;
     }
 
+    // EFFECTS: returns the author of a book
     public String getAuthor() {
         return author;
     }
 
+    // EFFECTS: returns the number of pages of a book
     public int getPages() {
         return pages;
     }
 
+    // EFFECTS: returns the rating of a book
     public int getRating() {
         return rating;
     }
-
-
-
 
     // REQUIRES: stars >= 0 and <= 5
     // MODIFIES: this
     // EFFECTS: changes the rating of the book; if rating is not
     //          within the range, it remains unchanged
     public int changeRating(int stars) {
-        if ((stars >= 0) && (stars <= 5)) {
+        if ((stars >= 1) && (stars <= 5)) {
             rating = stars;
             return rating;
         }
         return rating;
     }
-
-
 
 
 }
