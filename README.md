@@ -18,6 +18,9 @@ of books, in both professional and personal settings.
 ## User Stories
 
 - As a user, I want to be able to add books (and their information) to the collection
+- As a user, I want to be able to delete books from the collection
+- As a user, I want to view all the titles in the collection
+- As a user, I want to be able to select a title and see the book's information
 - As a user, I want to be able to search for a certain book based on title, author, genre, or page length
 - As a user, I want to be able to rate books on a scale of 1-5 stars
 - As a user, I would like to select a book and view the book's information in detail
