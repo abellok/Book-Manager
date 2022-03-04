@@ -70,6 +70,8 @@ public class BookCollection implements Writable {
         authors.remove(book.getAuthor());
     }
 
+    // EFFECTS: finds a book that has a matching title to an inputted string;
+    //          otherwise, returns null
     public Book findBook(List<Book> collection, String title) {
         for (Book b : collection) {
             if (b.getTitle().equals(title)) {

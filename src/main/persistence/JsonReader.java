@@ -50,8 +50,8 @@ public class JsonReader {
         return bc;
     }
 
-    // MODIFIES: wr
-    // EFFECTS: parses thingies from JSON object and adds them to workroom
+    // MODIFIES: bc
+    // EFFECTS: parses thingies from JSON object and adds them to book collection
     private void addBooks(BookCollection bc, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("books");
         for (Object json : jsonArray) {
@@ -60,8 +60,8 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: wr
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
+    // MODIFIES: bc
+    // EFFECTS: parses thingy from JSON object and adds it to book collection
     private void addBook(BookCollection bc, JSONObject jsonObject) {
         String title = jsonObject.getString("title");
         String author = jsonObject.getString("author");
