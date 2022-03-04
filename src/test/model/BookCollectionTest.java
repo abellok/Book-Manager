@@ -81,7 +81,12 @@ class BookCollectionTest {
         assertEquals(1, Collection1.getBookList().size());
     }
 
-
-
-
+    @Test
+    public void testFindBook() {
+        Collection1.addBook(B1);
+        Collection1.addBook(B2);
+        Collection1.addBook(B3);
+        assertEquals(B1, Collection1.findBook(Collection1.getBookList(), "Hunger Games"));
+        assertEquals(null, Collection1.findBook(Collection1.getBookList(), "Dodger"));
+    }
 }

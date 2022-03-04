@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // Represents a book collection, having an owner name,
 // total number of books, list of books, list of titles, and list of authors
@@ -58,11 +59,18 @@ public class BookCollection {
 
     // EFFECTS: removes a book, its title, and its author to their
     //          appropriate lists
-    //          NOTE: currently unused in phase 1... still in development
     public void removeBook(Book book) {
         books.remove(book);
         titles.remove(book.getTitle());
         authors.remove(book.getAuthor());
     }
 
+    public Book findBook(List<Book> collection, String title) {
+        for (Book b : collection) {
+            if (b.getTitle().equals(title)) {
+                return b;
+            }
+        }
+        return null;
+    }
 }

@@ -15,10 +15,9 @@ public class LibraryApp {
     // EFFECTS: displays main menu to user
     private void showMainMenu() {
         System.out.println("WELCOME TO YOUR BOOK COLLECTION!");
-        System.out.println("titles -> see titles in collection");
-        System.out.println("authors -> see authors in collection");
-        System.out.println("add -> add book");
-        System.out.println("q -> quit");
+        System.out.println("What action would you like to take?");
+        System.out.println("-----------------------------------");
+        System.out.println("See Titles | See Authors | Add | Delete | Quit");
     }
 
     // EFFECTS: runs the Library application
@@ -39,7 +38,7 @@ public class LibraryApp {
             command = input.next();
             command = command.toLowerCase();
 
-            if (command.equals("q")) {
+            if ((command.equals("quit")) || (command.equals("q"))) {
                 stillWorking = false;
             } else {
                 processCommand(command);
@@ -52,12 +51,14 @@ public class LibraryApp {
     // MODIFIES: this
     // EFFECTS: processes user inputs
     private void processCommand(String input) {
-        if (input.equals("titles")) {
-            seeTitleList(collection.getTitleList());
+        if ((input.equals("see titles")) || (input.equals("titles"))) {
+            seeTitleList();
         } else if (input.equals("add")) {
             addABook();
-        } else if (input.equals("authors")) {
-            seeAuthorList((collection.getAuthorList()));
+        } else if ((input.equals("see authors")) || (input.equals("authors"))) {
+            seeAuthorList();
+        } else if (input.equals("delete")) {
+            deleteABook();
         } else {
             System.out.println("NOT A VALID INPUT, PLEASE TRY AGAIN");
         }
@@ -72,42 +73,62 @@ public class LibraryApp {
         input.useDelimiter("\n");
     }
 
-    // EFFECTS: prints title list
-    private void seeTitleList(List<String> titles) {
-        for (String s : titles) {
+    // EFFECTS: prints list
+    private void printList(List<String> list) {
+        for (String s : list) {
             System.out.println(s);
-        }
-        System.out.println("- NO OTHER BOOKS IN COLLECTION -");
-
-        String selection = "";
-
-        while (!(selection.equals("m"))) {
-            System.out.println("m -> menu");
-            selection = input.next();
-            selection = selection.toLowerCase();
-
-            if (!(selection.equals("m"))) {
-                System.out.println("NOT A VALID INPUT, PLEASE TRY AGAIN");
-            }
         }
     }
 
+    // EFFECTS: displays the main menu
+    private void mainMenu() {
+        String selection = "";
+
+        System.out.println("See Titles | See Authors | Add | Delete | Quit");
+        selection = input.next();
+        selection = selection.toLowerCase();
+
+        processCommand(selection);
+    }
+
+    // EFFECTS: shows a list of titles in collection
+    private void seeTitleList() {
+        printList(collection.getTitleList());
+        System.out.println("-----------------------------------");
+        System.out.println("- NO OTHER BOOKS IN COLLECTION -");
+
+        mainMenu();
+    }
+
+
     // EFFECTS: prints author list
-    private void seeAuthorList(List<String> authors) {
-        for (String s : authors) {
-            System.out.println(s);
-        }
+    private void seeAuthorList() {
+        printList(collection.getAuthorList());
+        System.out.println("-----------------------------------");
         System.out.println("- NO OTHER AUTHORS IN COLLECTION -");
+
+        mainMenu();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Deletes specified book from collection
+    private void deleteABook() {
+        printList(collection.getTitleList());
 
         String selection = "";
 
-        while (!(selection.equals("m"))) {
-            System.out.println("m -> menu");
+        while (selection.equals("")) {
+            System.out.println("-----------------------------------");
+            System.out.println("What title would you like to delete?");
             selection = input.next();
-            selection = selection.toLowerCase();
 
-            if (!(selection.equals("m"))) {
-                System.out.println("NOT A VALID INPUT, PLEASE TRY AGAIN");
+            if (null == collection.findBook(collection.getBookList(), selection)) {
+                System.out.println("BOOK NOT FOUND. TRY AGAIN");
+                System.out.println("-----------------------------------");
+            } else {
+                collection.removeBook(collection.findBook(collection.getBookList(), selection));
+                System.out.println("BOOK DELETED!");
+                System.out.println("-----------------------------------");
             }
         }
     }
@@ -165,3 +186,7 @@ public class LibraryApp {
     }
 }
 
+//TODO: IMPLEMENT ANOTHER USER STORY FROM PHASE 1
+//TODO: change how you do ratings > go into a book and change its rating?
+//TODO: find ways to show book collection statistics (Number of books, number of authors,
+//      number of pages, etc.)

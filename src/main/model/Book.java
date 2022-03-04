@@ -3,10 +3,11 @@ package model;
 // Represents a single book, consisting of title, author,
 // number of pages, and rating (out of 5 stars)
 public class Book {
-    private static String title;            // title of the book
-    private static String author;           // author of the book
-    private static int pages;               // number of pages the book has
-    private static int rating;              // number of rating stars (out of 5)
+    private  String title;            // title of the book
+    private  String author;           // author of the book
+    private  int pages;               // number of pages the book has
+    private  int rating;              // number of rating stars (out of 5)
+    private String genre;
 
 
     // REQUIRES: bookTitle has a length >0
