@@ -1,11 +1,16 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a book collection, having an owner name,
 // total number of books, list of books, list of titles, and list of authors
-public class BookCollection {
+// NOTE: some code for this class is based on the JsonSerializationDemo
+public class BookCollection implements Writable {
     private final String name;              // name of the collection owner
     private int size;                       // current size of collection
     private ArrayList<Book> books;          // list of books in collection
@@ -72,5 +77,24 @@ public class BookCollection {
             }
         }
         return null;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("owner", name);
+        json.put("books", booksToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray booksToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Book b : books) {
+            jsonArray.put(b.toJson());
+        }
+
+        return jsonArray;
     }
 }

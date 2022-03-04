@@ -1,13 +1,17 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a single book, consisting of title, author,
 // number of pages, and rating (out of 5 stars)
-public class Book {
-    private  String title;            // title of the book
-    private  String author;           // author of the book
-    private  int pages;               // number of pages the book has
-    private  int rating;              // number of rating stars (out of 5)
-    private String genre;
+// NOTE: some code for this class is based on the JsonSerializationDemo
+public class Book implements Writable {
+    private String title;            // title of the book
+    private String author;           // author of the book
+    private int pages;               // number of pages the book has
+    private int rating;              // number of rating stars (out of 5)
+    private String genre;             // book genre (CURRENTLY UNUSED)
 
 
     // REQUIRES: bookTitle has a length >0
@@ -59,5 +63,13 @@ public class Book {
         return rating;
     }
 
-
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("author", author);
+        json.put("pages", pages);
+        json.put("rating", rating);
+        return json;
+    }
 }

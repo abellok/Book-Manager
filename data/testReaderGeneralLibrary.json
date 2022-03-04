@@ -1,0 +1,17 @@
+{
+    "books": [
+        {
+            "pages": 8,
+            "author": "Nicholas Sparks",
+            "rating": 5,
+            "title": "Another Sappy Love Story"
+        },
+        {
+            "pages": 500,
+            "author": "Every student ever",
+            "rating": 3,
+            "title": "I want a drink"
+        }
+    ],
+    "owner": "Keilah"
+}

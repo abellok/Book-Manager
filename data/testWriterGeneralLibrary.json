@@ -1,0 +1,17 @@
+{
+    "owner": "Keilah",
+    "books": [
+        {
+            "pages": 20,
+            "author": "A stupid student",
+            "rating": 5,
+            "title": "I got no sleep"
+        },
+        {
+            "pages": 10,
+            "author": "Me Myself and I",
+            "rating": 3,
+            "title": "I'm hungry"
+        }
+    ]
+}

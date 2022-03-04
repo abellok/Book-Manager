@@ -21,7 +21,7 @@ of books, in both professional and personal settings.
 - As a user, I want to be able to delete books from the collection
 - As a user, I want to view all the titles or authors in the collection
 - As a user, I want to save my book collection to a file
-- As a user, when I start the application I want to be able to open a saved book collection or create a new collection
+- As a user, when I start the application I want to be able to open a saved book collection
 
 **Other possible user stories not currently implemented:**
 - As a user, I want to be able to rate books on a scale of 1-5 stars

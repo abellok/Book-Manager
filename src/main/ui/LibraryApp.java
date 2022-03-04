@@ -2,27 +2,56 @@ package ui;
 
 import model.BookCollection;
 import model.Book;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+
 // Library application
-// NOTE: code for this class is highly based on the TellerApp code (given in Phase 1 Instructions)
+// NOTE: code for this class is highly based on the TellerApp and JsonSerializationDemo
 public class LibraryApp {
     private BookCollection collection;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private static final String JSON_STORE = "./data/library.json";
 
-    // EFFECTS: displays main menu to user
-    private void showMainMenu() {
+    // EFFECTS: creates collection and runs the Library application
+    public LibraryApp() throws FileNotFoundException {
+        collection = new BookCollection("Keilah");
+        input = new Scanner(System.in);
+        input.useDelimiter("\n");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        runLibrary();
+    }
+
+    // EFFECTS: prints a greeting message when application is first opened
+    private void greeting() {
         System.out.println("WELCOME TO YOUR BOOK COLLECTION!");
         System.out.println("What action would you like to take?");
         System.out.println("-----------------------------------");
-        System.out.println("See Titles | See Authors | Add | Delete | Quit");
     }
 
-    // EFFECTS: runs the Library application
-    public LibraryApp() {
-        runLibrary();
+    // EFFECTS: displays action options to user
+    private void showOptions() {
+        System.out.println("See Titles | See Authors | Add | Delete");
+        System.out.println("          Save | Load | Quit");
+    }
+
+    // EFFECTS: displays the main menu
+    private void mainMenu() {
+        String selection = "";
+
+        showOptions();
+        selection = input.next();
+        selection = selection.toLowerCase();
+
+        processCommand(selection);
     }
 
     // MODIFIES: this
@@ -31,10 +60,9 @@ public class LibraryApp {
         boolean stillWorking = true;
         String command = null;
 
-        createCollection();
-
         while (stillWorking) {
-            showMainMenu();
+            greeting();
+            showOptions();
             command = input.next();
             command = command.toLowerCase();
 
@@ -59,18 +87,13 @@ public class LibraryApp {
             seeAuthorList();
         } else if (input.equals("delete")) {
             deleteABook();
+        } else if (input.equals("save")) {
+            saveLibrary();
+        } else if (input.equals("load")) {
+            loadLibrary();
         } else {
-            System.out.println("NOT A VALID INPUT, PLEASE TRY AGAIN");
+            System.out.println("NOT A VALID INPUT. YOU ARE NOW AT THE MAIN PAGE");
         }
-
-    }
-
-    // MODIFIES: this
-    // EFFECTS: creates collection
-    private void createCollection() {
-        collection = new BookCollection("Keilah");
-        input = new Scanner(System.in);
-        input.useDelimiter("\n");
     }
 
     // EFFECTS: prints list
@@ -80,24 +103,12 @@ public class LibraryApp {
         }
     }
 
-    // EFFECTS: displays the main menu
-    private void mainMenu() {
-        String selection = "";
-
-        System.out.println("See Titles | See Authors | Add | Delete | Quit");
-        selection = input.next();
-        selection = selection.toLowerCase();
-
-        processCommand(selection);
-    }
-
     // EFFECTS: shows a list of titles in collection
     private void seeTitleList() {
         printList(collection.getTitleList());
         System.out.println("-----------------------------------");
         System.out.println("- NO OTHER BOOKS IN COLLECTION -");
-
-        mainMenu();
+        System.out.println("  ");
     }
 
 
@@ -106,6 +117,7 @@ public class LibraryApp {
         printList(collection.getAuthorList());
         System.out.println("-----------------------------------");
         System.out.println("- NO OTHER AUTHORS IN COLLECTION -");
+        System.out.println("  ");
 
         mainMenu();
     }
@@ -123,8 +135,9 @@ public class LibraryApp {
             selection = input.next();
 
             if (null == collection.findBook(collection.getBookList(), selection)) {
+                System.out.println("  ");
                 System.out.println("BOOK NOT FOUND. TRY AGAIN");
-                System.out.println("-----------------------------------");
+                System.out.println("  ");
             } else {
                 collection.removeBook(collection.findBook(collection.getBookList(), selection));
                 System.out.println("BOOK DELETED!");
@@ -139,13 +152,18 @@ public class LibraryApp {
         Book newBook = (new Book(addNewTitle(), addNewAuthor(),
                 addNewPages(), addNewRating()));
         collection.addBook(newBook);
+        System.out.println("  ");
+        System.out.println("BOOK ADDED!");
+        System.out.println("  ");
     }
 
     // EFFECTS: prompts user to input new book title
     private String addNewTitle() {
+        System.out.println("  ");
         System.out.println("Title of new book?");
         String newTitle = input.next();
         if (newTitle.length() <= 0) {
+            System.out.println("  ");
             System.out.println("PLEASE INPUT A TITLE");
             addNewTitle();
         }
@@ -154,9 +172,11 @@ public class LibraryApp {
 
     // EFFECTS: prompts user to input new author
     private String addNewAuthor() {
+        System.out.println("  ");
         System.out.println("Author of new book?");
         String newAuthor = input.next();
         if (newAuthor.length() <= 0) {
+            System.out.println("  ");
             System.out.println("PLEASE INPUT AN AUTHOR");
             addNewAuthor();
         }
@@ -165,9 +185,11 @@ public class LibraryApp {
 
     // EFFECTS: prompts user to input new page length
     private int addNewPages() {
+        System.out.println("  ");
         System.out.println("How many pages is the book?");
         int newPages = input.nextInt();
         if (newPages <= 0) {
+            System.out.println("  ");
             System.out.println("PLEASE INPUT A NUMBER GREATER THAN 0");
             addNewPages();
         }
@@ -176,13 +198,42 @@ public class LibraryApp {
 
     // EFFECTS: prompts user to input new rating
     private int addNewRating() {
+        System.out.println("  ");
         System.out.println("Rating out of 5 stars?");
         int newRating = input.nextInt();
         if (newRating <= 0) {
+            System.out.println("  ");
             System.out.println("PLEASE INPUT A RATING BETWEEN 1-5");
             addNewRating();
         }
         return newRating;
+    }
+
+    // EFFECTS: saves the workroom to file
+    private void saveLibrary() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(collection);
+            jsonWriter.close();
+            System.out.println("  ");
+            System.out.println("Saved " + collection.getOwner() + "'s library to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("  ");
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadLibrary() {
+        try {
+            collection = jsonReader.read();
+            System.out.println("  ");
+            System.out.println("Loaded " + collection.getOwner() + "'s library from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("  ");
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }
 
