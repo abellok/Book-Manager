@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.border.EmptyBorder;
 
+// NOTE: code for this class is highly based on the ListDemoProject and SimpleDrawingPlayer
 class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListener, DocumentListener {
     private JButton addButton;
     private JButton deleteButton;
@@ -45,6 +46,7 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         setResizable(false);
     }
 
+    // EFFECTS: sets up home screen
     public void initializeHomeScreen(Container screen) {
         screen.setLayout(new BoxLayout(screen, BoxLayout.Y_AXIS));
 
@@ -75,6 +77,7 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         screen.add(buttons);
     }
 
+    // EFFECTS: creates text fields
     public void initializeTextFields(Container screen) {
         bookTitle = new JTextField(5);
         author = new JTextField(5);
@@ -101,6 +104,7 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         screen.add(newBook);
     }
 
+    // EFFECTS: creates title
     public JLabel initializeTitle() {
         JLabel welcome = new JLabel("Welcome to your book collection!");
         welcome.setFont(new Font("Calibri", Font.BOLD, 30));
@@ -108,6 +112,7 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         return welcome;
     }
 
+    // EFFECTS: creates scrollable book collection panel
     public void initializeScroller(Container screen) {
         // sets up scroller
         listModel = new DefaultListModel();
@@ -132,6 +137,7 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         screen.add(bookList);
     }
 
+    // EFFECTS: sets up buttons and their display
     public void initializeButtons(Container container) {
         addButton = new JButton("Add");
         deleteButton = new JButton("Delete");
@@ -148,6 +154,7 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         container.add(Box.createRigidArea(new Dimension(10, 0)));
     }
 
+    // EFFECTS: sets up listeners for the buttons
     public void initializeButtonListeners(Container screen) {
         addButton.addActionListener(this);
         addButton.setActionCommand("Add Book");
@@ -164,13 +171,14 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         loadButton.setActionCommand("Save File");
     }
 
+    // EFFECTS: adds a button to a panel
     private static void addAButton(JButton button, Container container) {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         container.add(button);
     }
 
+    // EFFECTS: implements desired behaviour for each of the buttons
     @SuppressWarnings("methodlength")
-    //This is the method that is called when the JButton btn is clicked
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Add Book")) {
             String title = bookTitle.getText();
@@ -276,12 +284,14 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         }
     }
 
+    // EFFECTS: changes button to enabled
     private void enableButton() {
         if (!alreadyEnabled) {
             addButton.setEnabled(true);
         }
     }
 
+    // EFFECTS: stops making button enabled when text field is empty
     private boolean handleEmptyTextField(DocumentEvent e) {
         if (e.getDocument().getLength() <= 0) {
             addButton.setEnabled(false);
