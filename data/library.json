@@ -1,9 +1,4 @@
 {
     "owner": "Keilah",
-    "books": [{
-        "pages": 300,
-        "author": "keilah",
-        "rating": 5,
-        "title": "CPSC 101"
-    }]
+    "books": []
 }

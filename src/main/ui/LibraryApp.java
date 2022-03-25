@@ -149,8 +149,7 @@ public class LibraryApp {
     // MODIFIES: this
     // EFFECTS: Adds new book to collection
     private void addABook() {
-        Book newBook = (new Book(addNewTitle(), addNewAuthor(),
-                addNewPages(), addNewRating()));
+        Book newBook = (new Book(addNewTitle(), addNewAuthor()));
         collection.addBook(newBook);
         System.out.println("  ");
         System.out.println("BOOK ADDED!");

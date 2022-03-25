@@ -49,10 +49,8 @@ public class JsonWriterTest extends JsonTest {
     void testWriterGeneralWorkroom() {
         try {
             BookCollection bc = new BookCollection("Keilah");
-            bc.addBook(new Book("I got no sleep", "A stupid student",
-                    20, 5));
-            bc.addBook(new Book("I'm hungry", "Me Myself and I", 10,
-                    3));
+            bc.addBook(new Book("I got no sleep", "A stupid student"));
+            bc.addBook(new Book("I'm hungry", "Me Myself and I"));
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralLibrary.json");
             writer.open();
             writer.write(bc);

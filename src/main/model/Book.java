@@ -20,15 +20,15 @@ public class Book implements Writable {
     //           stars has a size >=0 and <=5
     // EFFECTS: creates a new book; sets book name to bookTitle, sets author to authorName,
     //          sets size of book to bookLength, sets rating to inputted stars.
-    public Book(String bookTitle, String authorName, int bookLength, int stars) {
+    public Book(String bookTitle, String authorName) {
         title = bookTitle;
         author = authorName;
-        pages = bookLength;
-        if ((stars <= 5) && (stars >= 1)) {
-            rating = stars;
-        } else {
-            rating = 0;
-        }
+//        pages = bookLength;
+//        if ((stars <= 5) && (stars >= 1)) {
+//            rating = stars;
+//        } else {
+//            rating = 0;
+//        }
     }
 
     // EFFECTS: returns the title of a book

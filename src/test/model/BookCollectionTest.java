@@ -18,12 +18,9 @@ class BookCollectionTest {
         Collection1 = new BookCollection("Allie");
         Collection2 = new BookCollection("Bernadette");
         Collection3 = new BookCollection("Casper");
-        B1 = new Book("Hunger Games", "Suzanne Collins",
-                150, 3);
-        B2 = new Book("Divergent", "Veronica Roth",
-                200, 5);
-        B3 = new Book("Twilight", "Stephanie Meyer",
-                300, 1);
+        B1 = new Book("Hunger Games", "Suzanne Collins");
+        B2 = new Book("Divergent", "Veronica Roth");
+        B3 = new Book("Twilight", "Stephanie Meyer");
     }
 
     @Test
