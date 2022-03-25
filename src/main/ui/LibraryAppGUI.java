@@ -39,6 +39,8 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         initializeHomeScreen(this.getContentPane());
         initializeButtonListeners(this.getContentPane());
         collection = new BookCollection("Keilah");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
 
         pack();
         setLocationRelativeTo(null);
@@ -167,8 +169,8 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         loadButton.addActionListener(this);
         loadButton.setActionCommand("Load File");
 
-        loadButton.addActionListener(this);
-        loadButton.setActionCommand("Save File");
+        saveButton.addActionListener(this);
+        saveButton.setActionCommand("Save File");
     }
 
     // EFFECTS: adds a button to a panel
@@ -237,18 +239,19 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
             try {
                 collection = jsonReader.read();
             } catch (IOException f) {
-                // stub
+                Toolkit.getDefaultToolkit().beep();
             }
             addSavedBooks(collection.getBookList());
         }
 
+        // save file
         if (e.getActionCommand().equals("Save File")) {
             try {
                 jsonWriter.open();
                 jsonWriter.write(collection);
                 jsonWriter.close();
             } catch (FileNotFoundException f) {
-                // stub
+                Toolkit.getDefaultToolkit().beep();
             }
         }
 
@@ -256,7 +259,11 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
     }
 
     public void addSavedBooks(ArrayList<Book> collection) {
+        listModel.removeAllElements();
         for (Book b : collection) {
+            if (b == null) {
+                return;
+            }
             listModel.addElement(b.getTitle()
                     + " (" + b.getAuthor() + ")");
         }
