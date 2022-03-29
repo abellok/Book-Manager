@@ -1,23 +1,9 @@
 {
     "owner": "Keilah",
-    "books": [
-        {
-            "pages": 0,
-            "author": "adsfasdf",
-            "rating": 0,
-            "title": "asdfdasf"
-        },
-        {
-            "pages": 0,
-            "author": "haha",
-            "rating": 0,
-            "title": "ahahahh"
-        },
-        {
-            "pages": 0,
-            "author": "loolll",
-            "rating": 0,
-            "title": "lolll"
-        }
-    ]
+    "books": [{
+        "pages": 0,
+        "author": "mwahaha",
+        "rating": 0,
+        "title": "mwahah"
+    }]
 }

@@ -60,6 +60,7 @@ public class BookCollection implements Writable {
         books.add(book);
         titles.add(book.getTitle());
         authors.add(book.getAuthor());
+        EventLog.getInstance().logEvent(new Event("Book added to collection."));
     }
 
     // EFFECTS: removes a book, its title, and its author to their
@@ -68,6 +69,7 @@ public class BookCollection implements Writable {
         books.remove(book);
         titles.remove(book.getTitle());
         authors.remove(book.getAuthor());
+        EventLog.getInstance().logEvent(new Event("Book removed from collection."));
     }
 
     // EFFECTS: finds a book that has a matching title to an inputted string;

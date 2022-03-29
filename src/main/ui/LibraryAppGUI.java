@@ -1,7 +1,8 @@
 package ui;
 
-import model.Book;
-import model.BookCollection;
+import model.*;
+import model.Event;
+import ui.LogPrinter;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -16,7 +17,8 @@ import javax.swing.BoxLayout;
 import javax.swing.border.EmptyBorder;
 
 // NOTE: code for this class is highly based on the ListDemoProject and SimpleDrawingPlayer
-class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListener, DocumentListener {
+class LibraryAppGUI extends JFrame implements ui.LogPrinter, ActionListener, ListSelectionListener,
+        DocumentListener {
     private JButton addButton;
     private JButton deleteButton;
     private JButton loadButton;
@@ -41,6 +43,15 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         collection = new BookCollection("Keilah");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+
+        addWindowListener(new WindowAdapter() {
+            LogPrinter lp;
+            @Override
+            public void windowClosing(WindowEvent e) {
+                printLog(EventLog.getInstance());
+                e.getWindow().dispose();
+            }
+        });
 
         pack();
         setLocationRelativeTo(null);
@@ -215,7 +226,7 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
         if (e.getActionCommand().equals("Delete Book")) {
             int index = list.getSelectedIndex();
             listModel.remove(index);
-            collection.getBookList().remove(index);
+            collection.removeBook(collection.getBookList().get(index));
 
 
             int size = listModel.getSize();
@@ -254,10 +265,21 @@ class LibraryAppGUI extends JFrame implements ActionListener, ListSelectionListe
                 Toolkit.getDefaultToolkit().beep();
             }
         }
-
-
     }
 
+    // EFFECTS: Prints the log
+    public void printLog(EventLog el) {
+        for (Event next : el) {
+            if (next == null) {
+                return;
+            }
+            System.out.println(next.getDescription());
+        }
+
+        repaint();
+    }
+
+    // EFFECTS: Adds saved books to JList GUI
     public void addSavedBooks(ArrayList<Book> collection) {
         listModel.removeAllElements();
         for (Book b : collection) {

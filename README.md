@@ -28,3 +28,12 @@ of books, in both professional and personal settings.
 - As a user, I want to be able to search for a certain book based on title, author, genre, or page length
 - As a user, I want to see statistical facts about my book collection (# of books, # of authors, total # of pages, etc.)
 
+## Phase 4: Task 2
+
+Book added to collection.
+
+Book added to collection.
+
+Book removed from collection.
+
+Book added to collection.
