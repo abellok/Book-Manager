@@ -40,8 +40,6 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    //TODO: double check the inputs below meet book collection requirements
-
     // EFFECTS: parses book collection from JSON object and returns it
     private BookCollection parseBookCollection(JSONObject jsonObject) {
         String name = jsonObject.getString("owner");
@@ -65,8 +63,8 @@ public class JsonReader {
     private void addBook(BookCollection bc, JSONObject jsonObject) {
         String title = jsonObject.getString("title");
         String author = jsonObject.getString("author");
-        int pages = jsonObject.getInt("pages");
-        int rating = jsonObject.getInt("rating");
+//        int pages = jsonObject.getInt("pages");
+//        int rating = jsonObject.getInt("rating");
         Book book = new Book(title, author);
         bc.addBook(book);
     }

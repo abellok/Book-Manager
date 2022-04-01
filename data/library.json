@@ -1,9 +1,4 @@
 {
     "owner": "Keilah",
-    "books": [{
-        "pages": 0,
-        "author": "mwahaha",
-        "rating": 0,
-        "title": "mwahah"
-    }]
+    "books": []
 }

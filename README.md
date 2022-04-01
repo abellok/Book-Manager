@@ -29,7 +29,6 @@ of books, in both professional and personal settings.
 - As a user, I want to see statistical facts about my book collection (# of books, # of authors, total # of pages, etc.)
 
 ## Phase 4: Task 2
-
 Book added to collection.
 
 Book added to collection.
@@ -37,3 +36,9 @@ Book added to collection.
 Book removed from collection.
 
 Book added to collection.
+
+## Phase 4: Task 3
+If I had more time to work on my project, I would definitely refactor to improve my design. 
+Currently, all my UI code for the graphic interface is in a single class... this makes the readability of my code 
+low, as it is not organized or separated in any way. Thus, I would probably split the different buttons and their 
+associated actions into their own classes, and have the GUI class call methods in each of those separated classes.
